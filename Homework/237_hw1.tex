@@ -1,0 +1,127 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[margin=.5in]{geometry}
+\usepackage{graphicx,amssymb,amstext,amsmath,amsthm,enumerate,float,textcomp}
+%\usepackage{listings}
+\makeatletter
+\renewcommand\@makefntext[1]{\leftskip=1em\hskip-2em\@makefnmark#1}
+\makeatother
+
+\begin{document}
+\flushright
+\begin{center}
+\Large
+STA 237  --- Time Series Analysis\\ Homework Series 1 \\ Rex Cheung  $\&$ Eliot Paisley \\ April 10, 2014 \\
+\large  Prof. A.Aue \\ UC Davis
+\end{center}
+
+\flushleft 
+\hrule \hrule 
+\vspace{0.2in}
+\begin{itemize}
+
+	\item \textbf{Problem 1: [Stationarity]} Let $(Z_t: \; t \in \mathbb{Z})$ be a sequence of independent zero mean and normal random variables with variance $\sigma^2$ and let $a, b$, and $c$ be constants. Which of the following processess are weakly and/or strictly stationary? For wach weakly stationary process specify the mean and ACVF. 
+	
+	
+	\begin{enumerate}[(a)]
+		\item $X_t = a + bZ_t + cZ_{t-1}$. \newline 
+		
+			\underline{\emph{Answer:}} Let $i,j \in \mathbb{Z}$ be any two integers. Then, 
+			$$E[X_i] = E[a + bZ_i + cZ_{i-1}] = a = E[a + bZ_j + cZ_{j-1}] = E[X_j],$$
+			and
+			$$Var[X_i] = Var[a + bZ_i + cZ_{i-1}] = 0 + b^2\sigma^2 + c^2\sigma^2 = Var[a + bZ_j + cZ_{j-1}] = Var[X_j], $$
+where we have implicitly used the fact that every pair of $Z_t$ have zero covariance. \newline 
+
+Thus, with knowledge that linear combinations of normally distributed random variables are normal, we have 
+$$X_i,X_j \sim \mathcal{N}(a,(b^2+c^2)\sigma^2) .$$
+Since $i,j$ were arbitrary, we have that every element $X_t$ has the same distribution, which implies that $X_t$ is \emph{strictly stationary}. \newline 
+
+Since we have explicitly shown that we have finite variance, then we may also conclude that $X_t$ is \emph{weakly stationary}. $E[X_t] = a \; \forall t$, and note that 
+$$Cov(X_{t+1},X_t) = Cov(a + bZ_{t+1} + cZ_{t}, a + bZ_t + cZ_{t-1} ) = Cov(cZ_t,bZ_t) = bc\sigma^2.  $$
+Thus, 
+$$\gamma(h) = \left\{\begin{array}{cc} (b^2+c^2)\sigma^2 & h = 0 \\ bc\sigma^2 & h=\pm 1 \\ 0 & |h|>1 \end{array}\right. .$$
+
+		\item $X_t = Z_t\cos(ct) + Z_{t-1}\sin(ct)$ \newline 
+		
+			\underline{\emph{Answer:}} Let $i,j \in \mathbb{Z}$ be any two integers. Then, 
+			$$E[X_i] = E[Z_i\cos(ci) + Z_{i-1}\sin(ci)] = 0 = E[Z_j\cos(cj) + Z_{j-1}\sin(cj)] = E[X_j],$$
+			and
+			$$Var[X_i] = Var[Z_i\cos(ci) + Z_{i-1}\sin(ci)] = \sigma^2\cos^2(ci) + \sigma^2\sin^2(ci) = \sigma^2, $$
+			$$Var[X_j] = Var[Z_j\cos(cj) + Z_{j-1}\sin(cj)] = \sigma^2\cos^2(cj) + \sigma^2\sin^2(cj) = \sigma^2, $$
+
+where we have implicitly used the fact that every pair of $Z_t$ have zero covariance. Thus, with knowledge that linear combinations of normally distributed random variables are normal, we have 
+$$X_i,X_j \sim \mathcal{N}(0,\sigma^2) .$$
+Since $i,j$ were arbitrary, we have that every element $X_t$ has the same distribution, which implies that $X_t$ is \emph{strictly stationary}.  \newline 
+
+Since we have explicitly shown that we have finite variance, then we may also conclude that $X_t$ is \emph{weakly stationary}. $E[X_t] = 0 \; \forall t$, and note that 
+\begin{align*}
+Cov(X_{t+1},X_t) & = Cov(Z_{t+1}\cos(ct+c) + Z_{t}\sin(ct+c),Z_t\cos(ct) + Z_{t-1}\sin(ct) ) \\
+& = Cov(cZ_t,bZ_t) = \sin(ct+c)\cos(ct)\sigma^2
+\end{align*}
+Thus, 
+$$\gamma(h) = \left\{\begin{array}{cc} \sigma^2 & h = 0 \\ \sin(ct+c)\cos(ct)\sigma^2 & h= + 1 \\ \cos(ct+c)\sin(ct)\sigma^2 & h= - 1 \\ 0 & |h|>1 \end{array}\right. .$$
+ 
+
+		\item $X_t = a + bZ_0$ \newline 
+		
+			\underline{\emph{Answer:}} Let $i,j \in \mathbb{Z}$ be any two integers. Then, 
+			$$E[X_i] = E[a + bZ_0] = a = E[a + bZ_0] = E[X_j],$$
+			and
+			$$Var[X_i] = Var[a + bZ_0] = 0 + b^2\sigma^2 = Var[a + bZ_0] = Var[X_j].$$
+
+Thus, with knowledge that linear combinations of normally distributed random variables are normal, we have 
+$$X_i,X_j \sim \mathcal{N}(0,b^2\sigma^2) .$$
+Since $i,j$ were arbitrary, we have that every element $X_t$ has the same distribution, which implies that $X_t$ is \emph{strictly stationary}. \newline 
+
+Since we have explicitly shown that we have finite variance, then we may also conclude that $X_t$ is \emph{weakly stationary}. $E[X_t] = 0 \; \forall t$, and 
+$$\gamma(h) = b^2\sigma^2, \forall h. $$
+
+		\item $X_t = Z_tZ_{t-1}$ \newline 
+		
+			\underline{\emph{Answer:}} \\ 
+
+	\end{enumerate}
+	
+	
+	\hrule 
+	\item \textbf{Problem 2: [U.S. Population]} Download the file \texttt{population.xls} from the course website. It contains the size of the population in the U.S.A. at ten-year intervals from 1790 to 2000. 
+	
+	
+	\begin{enumerate}[(a)]
+		\item Plot the data; 
+		\item Assuming the model $X_t = m_t + Z_t$, $E[Z_t] = 0$, fit a polynomial trend $\widehat{m}_t$ to the data; 
+		\item Plot the residuals $\hat{Z}_t = X_t - \hat{m}_t$. Comment on the quality of the fitted model; 
+		\item Use the fitted model to predict the population size in 2010 and 2020 (using predicted noise values of zero). 
+	\end{enumerate}
+	
+
+	\hrule 
+	\item \textbf{Problem 3: [Projection Theorem]} If $\mathcal{M}$ is a closed subspace of a Hilbert Space $\mathcal{H}$ and $x\in\mathcal{H}$, prove that 
+	$$\underset{y\in\mathcal{M}}{\min}||x-y|| = \max\left\{|\langle x,z\rangle|: z\in \mathcal{M}^\bot, ||z|| = 1  \right\} ,$$
+where $\mathcal{M}^\bot$ is the orthogonal complement of $\mathcal{M}$. \newline 
+
+	\underline{\emph{Answer:}} \newline 
+	
+	\hrule 
+	\item \textbf{Problem 4: [Prediction Equations]} If $X_t = Z_t - \theta Z_{t-1}$, where $|\theta| <1$ and $(Z_t: t\in\mathbb{Z})$ is a sequence of uncorrelated random variables, each with mean 0 and variance $\sigma^2$, show by checking the prediction equations that the best mean square predictor of $X_{n+1}$ in $\overline{\text{sp}}(X_j: j \leq n)$ is 
+	$$\hat{X}_{n+1} = -\sum_{j=1}^\infty \theta^j X_{n+1-j}. $$
+	What is the mean squared error of $\hat{X}_{n+1}$?
+
+	\underline{\emph{Answer:}} \newline 
+	
+	\hrule 
+
+
+\end{itemize}	
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
