@@ -1,6 +1,7 @@
 \documentclass[a4paper, 11pt]{article}
 \usepackage[margin=.5in]{geometry}
 \usepackage{graphicx,amssymb,amstext,amsmath,amsthm,enumerate,float,textcomp}
+\usepackage{pdfpages}
 %\usepackage{listings}
 \makeatletter
 \renewcommand\@makefntext[1]{\leftskip=1em\hskip-2em\@makefnmark#1}
@@ -83,23 +84,107 @@ $$\gamma(h) = b^2\sigma^2, \forall h. $$
 	
 	
 	\hrule 
+	\newpage 
 	\item \textbf{Problem 2: [U.S. Population]} Download the file \texttt{population.xls} from the course website. It contains the size of the population in the U.S.A. at ten-year intervals from 1790 to 2000. 
 	
 	
 	\begin{enumerate}[(a)]
-		\item Plot the data; 
-		\item Assuming the model $X_t = m_t + Z_t$, $E[Z_t] = 0$, fit a polynomial trend $\widehat{m}_t$ to the data; 
-		\item Plot the residuals $\hat{Z}_t = X_t - \hat{m}_t$. Comment on the quality of the fitted model; 
-		\item Use the fitted model to predict the population size in 2010 and 2020 (using predicted noise values of zero). 
-	\end{enumerate}
+		\item Plot the data. \newline 
+		
+		\emph{See Figure 1.}
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+	\includegraphics[scale=0.5]{hw1_dataplot.pdf}
+  \caption{Plot of the population data for Problem 2}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[scale=0.5]{hw1_resid.pdf}
+  \caption{Plot of the Residuals against Time for the fitted values in Table 1.}
+\end{minipage}
+\end{figure}
+
+		\item Assuming the model $X_t = m_t + Z_t$, $E[Z_t] = 0$, fit a polynomial trend $\widehat{m}_t$ to the data. \newline 
+		
+		\emph{See Table 1 for the fitted values for a $2^{nd}$ degree polynomial}
+		
+\begin{table}[h!]
+\small
+\centering
+\begin{tabular}{r}
+  \hline
+	$\widehat{m}_t$\\ 
+  \hline
+	6110720.45 \\ 
+  5637937.68 \\ 
+  6501266.64 \\ 
+  8700707.34 \\ 
+  12236259.78 \\ 
+  17107923.95 \\ 
+  23315699.86 \\ 
+  30859587.50 \\ 
+  39739586.88 \\ 
+  49955698.00 \\ 
+  61507920.85 \\ 
+  74396255.44 \\ 
+  88620701.76 \\ 
+  104181259.82 \\ 
+  121077929.62 \\ 
+  139310711.15 \\ 
+  158879604.42 \\ 
+  179784609.42 \\ 
+  202025726.16 \\ 
+  225602954.63 \\ 
+  250516294.84 \\ 
+  276765746.79 \\ 
+   \hline
+\end{tabular}
+\caption{Fitted values for a $2^{nd}$ degree polynomial fit}
+\end{table}
+
+		\item Plot the residuals $\hat{Z}_t = X_t - \hat{m}_t$. Comment on the quality of the fitted model. \newline 
+
+		\emph{See Figure 2.}
+		\item Use the fitted model to predict the population size in 2010 and 2020 (using predicted noise values of zero). \newline 
+		
+		\emph{See Table 2.}
+		
+		\begin{table}[h!]
+		\centering
+		\begin{tabular}{rrr}
+			\hline
+			& 2010 & 2020 \\ 
+			\hline
+		$\widehat{m}$ & 304351310.47 & 333272985.89 \\ 
+			\hline
+		\end{tabular}
+		\caption{Predicted population values for the years 2010 and 2020.}
+		\end{table}
+
+
+\end{enumerate}
 	
 
 	\hrule 
+	\newpage \newpage 
 	\item \textbf{Problem 3: [Projection Theorem]} If $\mathcal{M}$ is a closed subspace of a Hilbert Space $\mathcal{H}$ and $x\in\mathcal{H}$, prove that 
 	$$\underset{y\in\mathcal{M}}{\min}||x-y|| = \max\left\{|\langle x,z\rangle|: z\in \mathcal{M}^\bot, ||z|| = 1  \right\} ,$$
 where $\mathcal{M}^\bot$ is the orthogonal complement of $\mathcal{M}$. \newline 
 
-	\underline{\emph{Answer:}} \newline 
+	\underline{\emph{Answer:}} We show the desired result in two cases:\newline
+	
+	Case 1: Suppose that $x\in\mathcal{M}$. Then $\underset{y\in\mathcal{M}}{\min}||x-y|| = 0$, where the minimum is obtained at $y = x$. Moreover, $\langle x,z\rangle = 0\; \forall z\in \mathcal{M}^\bot$, due to orthogonality. \newline 
+	
+	Case 2: Suppose that $x\in\mathcal{M}^\bot$. Then, for $y\in\mathcal{M}, z\in\mathcal{M}^\bot$,  we can write 
+	$$\langle x,z \rangle = \langle x-y,z \rangle + \langle y,z\rangle  = \langle x-y,z \rangle,$$
+	and by the triangle inequality,
+	$$\langle x-y,z \rangle \leq ||x-y|| ||z|| = ||x-y||.$$
+	Thus, we have 
+	$$\langle x,z \rangle \leq ||x-y||,$$
+	and it follows naturally that in order for equality to hold we must have the maximum on the left-hand-side, and the minimum on the right-hand-side. That is, 
+	$$\max \langle x,z \rangle  = \min ||x-y||.$$
 	
 	\hrule 
 	\item \textbf{Problem 4: [Prediction Equations]} If $X_t = Z_t - \theta Z_{t-1}$, where $|\theta| <1$ and $(Z_t: t\in\mathbb{Z})$ is a sequence of uncorrelated random variables, each with mean 0 and variance $\sigma^2$, show by checking the prediction equations that the best mean square predictor of $X_{n+1}$ in $\overline{\text{sp}}(X_j: j \leq n)$ is 
